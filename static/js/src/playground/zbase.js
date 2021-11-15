@@ -6,6 +6,17 @@ class AcGamePlayground {
 <div class="ac-game-playground"></div>
 `
         );
+
+        this.start();
+
+    }
+
+    start() {
+        this.hide();
+    }
+
+    show() {
+        this.$playground.show();
         this.root.$ac_game.append(this.$playground);
         this.width = this.$playground.width();
         this.height = this.$playground.height();
@@ -18,16 +29,6 @@ class AcGamePlayground {
             this.players.push(new Player(this, this.width / 2, this.height / 2, this.height * 0.05, this.random_color(), this.height * 0.15, false));
         }
 
-        this.start();
-
-    }
-
-    start() {
-        // this.hide();
-    }
-
-    show() {
-        this.$playground.show();
     }
 
     hide() {
