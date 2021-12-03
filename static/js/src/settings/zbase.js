@@ -4,7 +4,6 @@ class Settings {
         this.platform = 'WEB';
         if (this.root.AcWingOS) this.platform = 'ACAPP';
 
-        console.log(this.platform);
         
         this.$settings = $(`
 <div class='ac-game-settings'>
@@ -221,7 +220,10 @@ class Settings {
     }
 
     logout_on_remote(){
-        if (this.platform === 'ACAPP') return false;
+        if (this.platform === 'ACAPP'){
+            this.root.AcWingOS.api.window.close();
+            return false;
+        };
 
         let outer = this;
 
@@ -286,7 +288,6 @@ class Settings {
     getinfo_acapp(){
         let outer = this;
 
-        console.log('acapp getinfo');
 
         $.ajax({
             url: 'https://app440.acapp.acwing.com.cn/settings/acwing/acapp/apply_code/',
