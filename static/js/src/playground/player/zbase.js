@@ -158,9 +158,6 @@ class Player extends AcGameObject{
         this.radius -= damage;
         if (this.radius < this.eps){
             this.destroy();
-            if (this.character === 'me'){
-                this.playground.state = 'over';
-            }
             return false;
         }
 
@@ -251,10 +248,17 @@ class Player extends AcGameObject{
         }
 
         this.spent_time += this.timedelta;
-
+        this.update_win();
         this.update_move();
 
         this.render();
+    }
+    
+    update_win() {
+        if (this.playground.state === 'fighting' && this.character === 'me' && this.playground.players.length === 1){
+            this.playground.state = 'over';
+            this.playground.score_board.win();
+        }
     }
 
     update_move() {
@@ -356,6 +360,23 @@ class Player extends AcGameObject{
             this.ctx.fill();
         }
     
+
+    }
+
+    on_destroy(){
+        if (this.character === 'me'){
+            if (this.playground.state === 'fighting'){
+                this.playground.state = 'over';
+                this.playground.score_board.lose();
+            }
+        }
+
+        for (let i = 0; i < this.playground.players.length; i ++){
+            if (this.playground.players[i] === this) {
+                this.playground.players.splice(i, 1);
+                break;
+            }
+        }
 
     }
 

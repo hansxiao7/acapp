@@ -25,7 +25,10 @@ class AcGameObject {
 
     update() {
     }
+    
+    late_update(){
 
+    }
     
     on_destroy() {
 
@@ -58,6 +61,11 @@ let AC_GAME_ANIMATION = function(timestamp) {
             obj.timedelta = timestamp - last_timestamp;
             obj.update();
         }
+    }
+    
+    for (let i = 0; i< AC_GAME_OBJECTS.length; i ++){
+        let obj = AC_GAME_OBJECTS[i];
+        obj.late_update();
     }
 
     last_timestamp = timestamp;
